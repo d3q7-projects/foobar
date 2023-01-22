@@ -1,11 +1,4 @@
-import java.util.Arrays;
-
-public class Main {
-    public static void main(String[] args) {
-        int[] sol = solution(new int[]{4,30});
-        System.out.println(Arrays.toString(sol));
-    }
-
+public class Gear {
     public static int[] solution(int[] pegArr){
         /*
         * suppose we have n pegs
@@ -21,6 +14,7 @@ public class Main {
         int sigma = 0;
         int firstGearRadNum;
         int firstGearRadDen = 3;
+        
         for (int i = 1; i < pegArr.length; i++) { //calculating the distance between each peg compared to the one before
             sigma = (pegArr[i] - pegArr[i-1]) - sigma;
         }
@@ -35,6 +29,17 @@ public class Main {
             firstGearRadNum = -sigma*2; //already an simplest form
             firstGearRadDen = 1;
         }
-        return firstGearRadNum > 0 ? new int[]{(int) firstGearRadNum, firstGearRadDen} : new int[]{-1, -1} ;
+        //check whether the solution works by checking that the size of each gear is positive
+        float fSigma = (float)firstGearRadNum/firstGearRadDen;
+        if (fSigma <= 0){
+            return new int[]{-1, -1};
+        }
+        for (int i = 1; i < pegArr.length; i++) {
+            fSigma = pegArr[i] - pegArr[i-1] - fSigma;
+            if (fSigma <= 0){
+                return new int[]{-1, -1};
+            }
+        }
+        return new int[]{(int) firstGearRadNum, firstGearRadDen};
     }
 }

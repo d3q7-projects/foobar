@@ -1,2 +1,2 @@
 # foobar
-My foobar submitions
+My foobar submissions
